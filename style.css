@@ -1,0 +1,394 @@
+/* Body and layout */
+body {
+    font-family: courier 12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #dadada; /* Light background */
+    color: #333; /* Darker text for better contrast */
+}
+
+#container {
+    display: flex;
+    justify-content: space-between;  /* Aligns the two windows with space between them */
+    align-items: flex-start;         /* Align windows at the top */
+    width: 100%;                     /* Full width for the container */
+    max-width: 800px;                /* You can adjust this width as needed */
+    margin: 0 auto;                  /* Center the container on the page */
+    gap: 20px;                       /* Add some space between the windows */
+}
+
+/* Window styles */
+.window {
+    width: 48%;                      /* Ensure each window takes up about half the container width */
+    border: 1px solid #6d6565;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;     /* Stack the windows vertically on smaller screens */
+        width: 100%;
+    }
+
+    .window {
+        width: 100%;               /* Each window will take full width on smaller screens */
+    }
+}
+
+/* Drag-and-drop container */
+#dropZone {
+    border: 2px dashed #aaa;
+    padding: 40px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: #555;
+    border-radius: 10px; /* Rounded corners */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover effect for drag-and-drop container */
+#dropZone:hover {
+    background-color: #f1f1f1;
+    border-color: #555;
+}
+/* CSS: Style for the range input */
+#playbackSpeed,
+#recordPlaybackSpeed,
+#volumeControl,
+#recordVolumeControl {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Custom Audio Player Styles */
+#customAudioPlayer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns play button and waveform closer */
+    gap: 6px; /* Space between play button and waveform */
+    margin-top: 5px;
+}
+
+#playButton,
+#recordPlayButton {
+    margin: 0px;  /* Reduced margin */
+    padding: 10px; /* Similar padding to the second button */
+    border: none;
+    outline: none;
+    color: #fcfcfc;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 50%; /* Make it circular */
+    font-size: 16px; /* Match the font size to the second button */
+    width: 50px;  /* Match the width to the second button */
+    height: 50px; /* Match the height to the second button */
+    background-color: #ff2200; /* Apply a background color to match the second button */
+}
+
+#playButton::after,
+#recordPlayButton::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    left: 0;
+    top: 0;
+    border-radius: 50%; /* Make the background circular */
+}
+
+/* glow effect */
+#playButton::before,
+#recordPlayButton::before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #FF0000, #FF7300, #FFFB00, #48FF00,
+      #00FFD5, #002BFF, #FF00C8, #FF0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 20s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 50%; /* Keep the glow effect circular */
+    opacity: 0;
+}
+
+#playButton:hover::before,
+#recordPlayButton:hover::before {
+    opacity: 1;
+}
+
+#playButton:active:after,
+#recordPlayButton:active:after {
+    background: transparent;
+}
+
+#playButton:active,
+#recordPlayButton:active {
+    color: #000;
+    font-weight: bold;
+}
+
+/* Waveform Canvas */
+canvas {
+    border: none;
+    width: 100%; /* Keep the canvas width fixed to prevent resizing issues */
+    height: 50px;
+    margin: 0; /* Remove margin around the canvas */
+}
+
+/* Style for the range input track */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 100%;
+    height: 10px; /* Increase the height to better center the thumb */
+    background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #000000; /* Set the track color to black */
+    height: 5px; /* Make the track smaller to allow space for the thumb */
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #ff0000; /* Set thumb color to red */
+    width: 15px; /* Adjust thumb size */
+    height: 15px; /* Adjust thumb size */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    margin-top: -5px; /* This centers the thumb inside the track */
+}
+
+input[type="range"]::-moz-range-track {
+    background: #000000; /* Set the track color to black */
+    height: 5px;
+    border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: #ff0000; /* Set thumb color to red */
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    margin-top: -5px; /* This centers the thumb inside the track */
+}
+
+input[type="range"]::-ms-track {
+    width: 100%;
+    height: 5px;
+    background: transparent; 
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type="range"]::-ms-thumb {
+    background: #ff0000;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-ms-fill-lower,
+input[type="range"]::-ms-fill-upper {
+    background: #000000;
+}
+
+/* Volume Control Styles */
+#volumeDisplay,
+#recordVolumeDisplay {
+    color: #000000; /* Set the color to black */
+}
+
+/* Animation for glowing effect */
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    100% { background-position: 600% 0; }
+}
+#recordingControls {
+    display: flex;
+    gap: 10px; /* Adds space between the buttons */
+}
+
+#saveRecording {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    outline: none;
+    color: #fcfcfc;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 50%;
+    font-size: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #e4220c;
+    text-align: center; /* Center the text horizontally */
+
+}
+
+#saveRecording::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+}
+
+#saveRecording:hover::before {
+    opacity: 1;
+}
+
+#saveRecording:active:after {
+    background: transparent;
+}
+
+#saveRecording:active {
+    color: #000;
+    font-weight: bold;
+}
+
+#saveRecording::before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #FF0000, #FF7300, #FFFB00, #48FF00,
+      #00FFD5, #002BFF, #FF00C8, #FF0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 20s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+#audioRecorderWindow, #audioPlayerWindow {
+    padding: 40px;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Rounded corners */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* Set initial height to auto */
+}
+
+/* Ensure both windows have the same height */
+#container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Ensure that both windows stretch to equal heights */
+}
+
+/* Add flexbox layout to the audio recorder window */
+#audioRecorderWindow {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Push all elements except #h2 to the bottom */
+#audioRecorderWindow > *:not(#h2):not(label):not(input) {
+    margin-top: 17.7px;
+}
+
+/* Assign order to elements to rearrange them */
+#audioRecorderWindow > h2 {
+    order: 1;
+}
+
+#audioRecorderWindow > button {
+    order: 2;
+}
+
+#audioRecorderWindow > br {
+    order: 3;
+}
+
+/* Move the waveform canvas above the controls */
+#audioRecorderWindow > canvas {
+    order: 4;
+}
+
+/* Arrange the playback speed control */
+#audioRecorderWindow label[for="recordPlaybackSpeed"],
+#audioRecorderWindow #recordPlaybackSpeed {
+    order: 5;
+}
+
+/* Arrange the volume control */
+#audioRecorderWindow label[for="recordVolumeControl"],
+#audioRecorderWindow #recordVolumeControl {
+    order: 6;
+}
+
+
+/* Adjust layout for the waveform and play button */
+#recordingControls {
+    display: flex;
+    justify-content: space-between; /* Align waveform and play button */
+    align-items: center; /* Vertically align both elements */
+}
+
+#recordPlayButton {
+    margin-left: 10px; /* Add spacing between the waveform and button */
+    width: 50px;
+    height: 50px;
+}
+
+canvas#waveform {
+    width: 100%; /* Make the waveform responsive */
+    margin-right: 10px; /* Add some space on the right */
+}
+/* Align recording controls and download button in a row */
+#recordingControlsTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Space between recording controls and waveform */
+}
+
+/* Align waveform and play button side by side underneath recording controls */
+#recordingControlsBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#recordPlayButton {
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+canvas#waveform {
+    width: 100%; /* Make the waveform responsive */
+    margin-right: 10px;
+}

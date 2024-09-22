@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enhanced Audio Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- first website ever wow-->
+    <!--Left Window: Audio Recorder with Waveform Display-->
+    <div id="container">
+    <div class="window" id="audioRecorderWindow">
+    <div id="h2">
+        <h2> Audio Recorder</h2>
+    </div>
+    <div id="recordingControlsTop">
+        <button id="startRecording">Start Recording</button>
+        <button id="stopRecording" disabled>Stop Recording</button>
+        <button id="saveRecording" disabled>Download</button>
+    </div>
+    <audio id="recordedAudio" preload="auto" style="display: none;"></audio>
+    <br>
+    <div id="recordingControls">
+        <canvas id="waveform" width="300" height="175"></canvas>
+        <button id="recordPlayButton">▶</button>
+    </div>
+
+    <!-- Playback Speed Control for Recorded Audio -->
+    <label for="recordPlaybackSpeed">Playback Speed: <span id="recordSpeedDisplay">1.0x</span></label>
+    <input type="range" id="recordPlaybackSpeed" min="0.5" max="2.0" value="1.0" step="0.1">
+    <!-- Volume Control for Recorded Audio -->
+    <label for="recordVolumeControl">Volume: <span id="recordVolumeDisplay">100%</span></label>
+    <input type="range" id="recordVolumeControl" min="0" max="1" value="1" step="0.01">
+    </div>
+
+
+    <!-- Right Window: Drag-and-Drop Audio and File Upload -->
+    <div class="window" id="audioPlayerWindow">
+        <h2>Audio Player</h2>
+        <div id="dropZone">Drag and Drop Audio Here</div>
+        <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+        <audio id="audioElement" style="display: none;"></audio> <!-- Hidden audio element -->
+
+      
+        <!-- Custom Audio Player -->
+        <div id="customAudioPlayer">
+            <button id="playButton">▶</button>
+            <canvas id="Audio_waveform" width="300" height="175"></canvas>
+        </div>
+        <label for="playbackSpeed">Playback Speed: <span id="speedDisplay">1.0x</span></label>
+        <input type="range" id="playbackSpeed" min="0.5" max="2.0" value="1.0" step="0.1">
+    
+        <!-- Volume Control -->
+        <label for="volumeControl">Volume: <span id="volumeDisplay">100%</span></label>
+        <input type="range" id="volumeControl" min="0" max="1" value="1" step="0.01">
+    </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
