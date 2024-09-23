@@ -326,7 +326,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
                 // Explicitly set MIME type for MediaRecorder
-                let options = { mimeType: 'audio/webm;codecs=opus' };
+                let options = { mimeType: 'audio/mp3;codecs=opus' };
                 if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                     console.warn(`${options.mimeType} is not supported, trying 'audio/ogg; codecs=opus'.`);
                     options = { mimeType: 'audio/ogg; codecs=opus' };
@@ -365,7 +365,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 mediaRecorder.onstop = () => {
                     console.log("Recording stopped, processing data.");
                     console.log("Audio chunks collected:", audioChunks.length);
-                    const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+                    const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/mp3' });
                     const audioUrl = URL.createObjectURL(audioBlob);
                     recordedAudio.src = audioUrl;
 

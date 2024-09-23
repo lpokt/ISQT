@@ -1,7 +1,9 @@
 /* Body and layout */
 body {
     font-family: courier 12;
+    font-size: 1rem; /* Use rem units for fonts */
     display: flex;
+    line-height: 1.5;
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -29,14 +31,66 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
+/* Responsive settings for mobile */
 @media (max-width: 768px) {
+    /* Stack windows vertically on smaller screens */
     #container {
-        flex-direction: column;     /* Stack the windows vertically on smaller screens */
+        flex-direction: column; /* Stacks the windows vertically */
+        align-items: center;  /* Center the windows on mobile */
+    }
+
+    .window {
+        width: 100%;  /* Make each window take full width on mobile */
+        margin-bottom: 15px;  /* Add spacing between stacked windows */
+    }
+
+    /* Adjust buttons for touch accessibility */
+    #playButton, #recordPlayButton {
+        width: 50px;  /* Make buttons larger for easier tapping */
+        height: 50px;
+        font-size: 16px;  /* Slightly larger font */
+    }
+
+    /* Adjust range sliders for smaller screens */
+    input[type="range"] {
+        width: 100%;  /* Make sure sliders take full width */
+        height: 8px;
+    }
+
+    /* Adjust drag-and-drop zone for mobile */
+    #dropZone {
+        padding: 20px;  /* Adjust padding for better mobile fit */
+        font-size: 1rem;  /* Make text larger for readability */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    #container {
+        flex-direction: column;
+        align-items: center;
         width: 100%;
     }
 
     .window {
-        width: 100%;               /* Each window will take full width on smaller screens */
+        width: 100%; /* Ensure windows take full width on small devices */
+        margin-bottom: 20px;
+    }
+
+    canvas {
+        height: 40px;  /* Reduce height for waveforms on very small screens */
+    }
+
+    /* Touch-friendly buttons for small devices */
+    button {
+        padding: 12px;  /* Larger touch areas for buttons */
+        font-size: 1rem;  /* Make text more readable */
+    }
+
+    /* Resize drag-and-drop zone for small screens */
+    #dropZone {
+        padding: 20px;
+        font-size: 1rem; /* Larger font for mobile readability */
     }
 }
 
