@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ISQT</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="Assest/apple-touch-icon.png">
@@ -25,7 +26,7 @@
     <audio id="recordedAudio" preload="auto" style="display: none;"></audio>
     <br>
     <div id="recordingControls">
-        <canvas id="waveform" width="300" height="175"></canvas>
+        <canvas id="waveform"></canvas>
         <button id="recordPlayButton">▶</button>
     </div>
 
@@ -49,7 +50,7 @@
         <!-- Custom Audio Player -->
         <div id="customAudioPlayer">
             <button id="playButton">▶</button>
-            <canvas id="Audio_waveform" width="300" height="175"></canvas>
+            <canvas id="Audio_waveform"></canvas>
         </div>
         <label for="playbackSpeed">Playback Speed: <span id="speedDisplay">1.0x</span></label>
         <input type="range" id="playbackSpeed" min="0.5" max="2.0" value="1.0" step="0.1">

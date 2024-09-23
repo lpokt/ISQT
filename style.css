@@ -3,6 +3,7 @@ body {
     font-family: courier 12;
     font-size: 1rem; /* Use rem units for fonts */
     display: flex;
+    margin: 0;
     line-height: 1.5;
     flex-direction: column;
     align-items: center;
@@ -33,49 +34,45 @@ body {
 }
 /* Responsive settings for mobile */
 @media (max-width: 768px) {
-    /* Stack windows vertically on smaller screens */
-    #container {
-        flex-direction: column; /* Stacks the windows vertically */
-        align-items: center;  /* Center the windows on mobile */
-    }
-
-    .window {
-        width: 100%;  /* Make each window take full width on mobile */
-        margin-bottom: 15px;  /* Add spacing between stacked windows */
-    }
-
-    /* Adjust buttons for touch accessibility */
-    #playButton, #recordPlayButton {
-        width: 50px;  /* Make buttons larger for easier tapping */
-        height: 50px;
-        font-size: 16px;  /* Slightly larger font */
-    }
-
-    /* Adjust range sliders for smaller screens */
-    input[type="range"] {
-        width: 100%;  /* Make sure sliders take full width */
-        height: 8px;
-    }
-
-    /* Adjust drag-and-drop zone for mobile */
-    #dropZone {
-        padding: 20px;  /* Adjust padding for better mobile fit */
-        font-size: 1rem;  /* Make text larger for readability */
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further adjustments for very small screens */
     #container {
         flex-direction: column;
         align-items: center;
-        width: 100%;
-    }
+        justify-content: flex-start;
+        margin: 0;  /* Reset margins */
+        overflow-x: hidden;  /* Prevent horizontal overflow */
+        width: 100%;  /* Adjust the width to fit within the margins */
+    }}
 
     .window {
-        width: 100%; /* Ensure windows take full width on small devices */
-        margin-bottom: 20px;
+        width: 100%;  /* Ensure window elements fit within the container */
+        max-width: 100%;  /* Prevent them from exceeding the container's width */
+        padding: 20px;
+        box-sizing: border-box; 
     }
+
+    button {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    canvas {
+        height: 100px;
+    }
+
+@media (max-width: 480px) {
+    canvas {
+        height: 80px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    input[type="range"] {
+        height: 6px;
+    }
+}
 
     canvas {
         height: 40px;  /* Reduce height for waveforms on very small screens */
@@ -92,7 +89,6 @@ body {
         padding: 20px;
         font-size: 1rem; /* Larger font for mobile readability */
     }
-}
 
 /* Drag-and-drop container */
 #dropZone {
